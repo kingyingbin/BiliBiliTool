@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Ray.BiliBiliTool.Agent.BiliBiliAgent.Dtos;
+using Ray.BiliBiliTool.DomainService.Dtos;
 
 namespace Ray.BiliBiliTool.DomainService.Interfaces
 {
@@ -11,10 +12,27 @@ namespace Ray.BiliBiliTool.DomainService.Interfaces
     public interface IVideoDomainService : IDomainService
     {
         /// <summary>
-        /// 获取一个随机视频aid
+        /// 获取视频详情
+        /// </summary>
+        /// <param name="aid"></param>
+        /// <returns></returns>
+        VideoDetail GetVideoDetail(string aid);
+
+        /// <summary>
+        /// 从排行榜获取一个随机视频
         /// </summary>
         /// <returns></returns>
-        string GetRandomVideo();
+        RankingInfo GetRandomVideoOfRanking();
+
+        /// <summary>
+        /// 从某个指定UP下获取随机视频
+        /// </summary>
+        /// <param name="upId"></param>
+        /// <param name="total"></param>
+        /// <returns></returns>
+        UpVideoInfo GetRandomVideoOfUp(long upId, int total);
+
+        int GetVideoCountOfUp(long upId);
 
         /// <summary>
         /// 观看并分享视频
@@ -27,38 +45,13 @@ namespace Ray.BiliBiliTool.DomainService.Interfaces
         /// </summary>
         /// <param name="aid"></param>
         /// <param name="dailyTaskStatus"></param>
-        void WatchVideo(string aid, string title = "");
+        void WatchVideo(VideoInfoDto videoInfo);
 
         /// <summary>
         /// 分享
         /// </summary>
         /// <param name="aid"></param>
         /// <param name="dailyTaskStatus"></param>
-        void ShareVideo(string aid, string title = "");
-
-        /// <summary>
-        /// 投币
-        /// </summary>
-        void AddCoinsForVideo();
-
-        /// <summary>
-        /// 投币
-        /// </summary>
-        /// <param name="aid"></param>
-        /// <param name="multiply"></param>
-        /// <param name="select_like"></param>
-        /// <returns></returns>
-        bool AddCoinsForVideo(string aid, int multiply, bool select_like, string title = "");
-
-        /// <summary>
-        /// 是否已对某视频投币
-        /// </summary>
-        /// <param name="aid"></param>
-        /// <returns></returns>
-        bool CanDonatedCoinsForVideo(string aid);
-
-        List<UpVideoInfo> GetRandomVideosOfUps();
-
-        Tuple<string, string> TryGetNotDonatedVideo();
+        void ShareVideo(VideoInfoDto videoInfo);
     }
 }

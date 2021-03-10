@@ -9,12 +9,18 @@ namespace DailyTaskTest
 {
     public class ReceiveVipPrivilege
     {
+        public ReceiveVipPrivilege()
+        {
+            Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
+            Program.CreateHost(null);
+        }
+
         [Fact]
         public void Test1()
         {
-            Program.PreWorks(new string[] { });
+            Program.CreateHost(new string[] { });
 
-            using (var scope = RayContainer.Root.CreateScope())
+            using (var scope = Global.ServiceProviderRoot.CreateScope())
             {
                 var dailyTask = scope.ServiceProvider.GetRequiredService<IVipPrivilegeDomainService>();
                 var account = scope.ServiceProvider.GetRequiredService<IAccountDomainService>();

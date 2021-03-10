@@ -4,16 +4,16 @@ using Ray.BiliBiliTool.DomainService.Interfaces;
 using Ray.BiliBiliTool.Infrastructure;
 using Xunit;
 
-namespace MangaSignTest
+namespace DailyTaskTest
 {
     public class MangaSign
     {
         [Fact]
         public void Test1()
         {
-            Program.PreWorks(new string[] { });
+            Program.CreateHost(new string[] { });
 
-            using (var scope = RayContainer.Root.CreateScope())
+            using (var scope = Global.ServiceProviderRoot.CreateScope())
             {
                 var dailyTask = scope.ServiceProvider.GetRequiredService<IMangaDomainService>();
 
